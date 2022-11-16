@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Bilgisayar Teknik Servisi</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+</head>
+<body>
+	<div class="row">
+		<div class="col-2">
+			<!-- menuyu replace etmek için -->
+			<div th:replace="fragment/menu.html :: menu"></div>
+		</div>
+		<div class="col-10">
+			<h1>Tekliflerim</h1>
+			<div class="col-10">
+				<table class="table table-striped table-bordered">
+					<thead class="table-dark">
+						<tr>
+							<th scope="col" class="col-auto">Ürün</th>
+							<th scope="col" class="col-auto">Not</th>
+							<th scope="col" class="col-auto">Fiyat</th>
+							<!--  <th scope="col" class="col-auto">Admin Onay</th> -->
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="proposal : ${proposals}">
+							<!-- th:each="booking : ${bookinglist}" -->
+							<td class="col-auto"><label
+								th:text="${proposal.product.name}"></label></td>
+							<td class="col-auto"><label th:text="${proposal.note}"></label></td>
+							<td class="col-auto"><label th:text="${proposal.fiyat}"></label></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
+</body>
+</body>
+</html>

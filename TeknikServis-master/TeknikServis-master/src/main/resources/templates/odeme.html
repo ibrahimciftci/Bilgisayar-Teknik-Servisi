@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bilgisayar Teknik Servisi</title>
+
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+	<div class="row">
+		<div class="col-2">
+			<!-- menuyu replace etmek için -->
+			<div th:replace="fragment/menu.html :: menu"></div>
+		</div> 
+		<div class="col-10" sec:authorize="isAuthenticated()">
+				<br><br><label>Ödemeniz Alınmıştır.</label><br>
+				<a class="btn btn-info btn-sm" 
+								href="/sale/list">Satış Sayfası</a>
+				
+<!-- 				<a class="btn btn-info btn-sm"  -->
+<!-- 								href="/sale/odeme">Ödeme Yap</a> -->
+			</div>
+
+	</div>
+	<br />
+	<br />
+</body>
+</body>
+</html>

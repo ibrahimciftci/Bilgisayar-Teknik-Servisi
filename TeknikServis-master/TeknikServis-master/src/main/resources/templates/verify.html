@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bilgisayar Teknik Servisi</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+</head>
+<body>
+	<div class="row">
+		<div class="col-2">
+			<!-- menuyu replace etmek için -->
+			<div th:replace="fragment/menu.html :: menu"></div>
+		</div>
+		<div class="col-10">
+
+	<form method="post" action="/verify" th:object="${user}">
+
+				<h1 style="margin-bottom: 50px; margin-top: 50px"
+					th:text="#{login.login}"></h1>
+
+
+				<label style="color: red; margin-bottom: 20px"
+					th:object="${loginerror}" th:text=${loginerror}> </label><br /> <label>Username:</label>
+
+				<input type="text" class="form-control" style="width: 600px"
+					id="username" th:field="*{username}" name="username"
+					required="required"><br> <label>Password:</label> <input
+					type="password" class="form-control" style="width: 600px"
+					id="password" name="password" th:field="*{password}"
+					required="required"><br>
+					<input type="text" class="form-control" style="width: 600px"
+					id="code" th:field="*{code}" name="code"
+					required="required">
+				<button type="submit" class="btn btn-success mt-2"
+					style="width: 200px" th:text="#{login.login_button}"></button>
+
+			</form>
+
+
+		</div>
+
+
+
+
+	</div>
+	<br />
+	<br />
+</body>
+</body>
+</html>

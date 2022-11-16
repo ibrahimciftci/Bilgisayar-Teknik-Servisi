@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Bilgisayar Teknik Servisi</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<div class="row">
+		<div class="col-2">
+			<!-- menuyu replace etmek için -->
+			<div th:replace="fragment/menu.html :: menu"></div>
+		</div>
+		<div class="col-10">
+			<h1 th:text="#{menu.verifyProposal}"></h1>
+			<div class="col-10">
+				<table class="table table-striped table-bordered">
+					<thead class="table-dark">
+						<tr>
+							<th scope="col" class="col-auto" th:text ="#{proosal.customer.name}"></th>
+							<th scope="col" class="col-auto" th:text ="#{proosal.product.name}"></th>
+							<th scope="col" class="col-auto" th:text ="#{proosal.product.price}"></th>
+							<th scope="col" class="col-auto" th:text ="#{proosal.note}"></th>
+							<th scope="col" class="col-auto" th:text ="#{proosal.operations}"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="proposal : ${proposals}"
+						th:style="${proposal.durum} ?  'background-color: rgb(96, 255, 96)' : 'background-color: rgb(255, 49, 49)'"
+						>
+							<!-- th:each="booking : ${bookinglist}" -->
+							<td class="col-auto"><label
+								th:text="${proposal.user.username}"></label></td>
+							<td class="col-auto"><label
+								th:text="${proposal.product.name}"></label></td>
+							<td class="col-auto"><label th:text="${proposal.fiyat}"></label></td>
+							<td class="col-auto"><label th:text="${proposal.note}"></label></td>
+
+							<td><a style="background-color:green;"
+								th:href="@{/verifyProposal/accept/{id}(id=${proposal.ID})}"
+								class="btn btn-primary" th:value="true" th:text ="#{proosal.validation}"><i
+									class="fas fa-user-times ml-2"></i></a>
+									
+									<a style="background-color:red;" th:href="@{/verifyProposal/deny/{id}(id=${proposal.ID})}"
+								class="btn btn-primary" th:text ="#{proosal.reject}"><i class="fas fa-user-times ml-2"></i></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
+</body>
+</body>
+</html>

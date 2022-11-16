@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bilgisayar Teknik Servisi</title>
+
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+
+
+
+<body>
+	<div class="row">
+		<div class="col-2">
+			<!-- menuyu replace etmek için -->
+			<div th:replace="fragment/menu.html :: menu"></div>
+		</div>
+		<div class="col-10" sec:authorize="isAuthenticated()">
+				<table class="table table-striped table-bordered" >
+					<thead class="table-dark">
+						<tr>
+							<th scope="col" class="col-auto" th:text="#{product.name}"></th>
+							<th scope="col" class="col-auto" th:text="#{product.note}"></th>
+							<th scope="col" class="col-auto" th:text="#{product.price}"></th>
+							<th scope="col" class="col-auto" th:text="#{product.action}"></th>
+							<th scope="col" class="col-auto" >Image</th>				
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="sale : ${liste}">
+							<td class="col-auto"><label th:text="${sale.product.name}"></label></td>
+							<td class="col-auto"><label th:text="${sale.note}"></label></td>
+							<td class="col-auto"><label th:text="${sale.fiyat}"></label></td>
+							<td class="col-auto"><img th:src="${sale.id} + '.jpg'" style="width:150px; height:150px;"/></td>
+							
+ 							<td class="btn btn-info btn-sm" ><a style="color:white" th:text="#{sale.addButton}" 
+								th:href="'/basket/insertBasket?saleId='+${sale.id}"></a>
+								</td>
+						</tr>
+					</tbody>
+					
+				</table>
+			</div>
+
+	</div>
+	<br />
+	<br />
+</body>
+</body>
+</html>

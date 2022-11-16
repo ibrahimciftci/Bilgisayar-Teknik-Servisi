@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Bilgisayar Teknik Servisi</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+</head>
+
+
+
+<body>
+	<div class="row">
+		<div class="col-2">
+			<!-- menuyu replace etmek için -->
+			<div th:replace="fragment/menu.html :: menu"></div>
+		</div>
+		<div class="col-10">
+			<form method="post" action="/sale/sellproduct" th:object="${sale}"
+				enctype="multipart/form-data">
+				<h1 th:text="#{sale.title}"></h1>
+
+				<div style="color: green; width: 600px">
+					<label th:text="#{sale.product.choose}"></label> <select
+						class="form-control" th:field="*{product}">
+						<option th:each="product : ${products}" th:value="${product.id}"
+							th:text="${product.name}"></option>
+					</select>
+				</div>
+				<br /> <label style="color: green;" th:text="#{sale.product.price}"></label>
+				<input type="number" class="form-control" th:field="*{fiyat}"
+					style="width: 600px" required="required"> <br>
+				<!-- 					th:value="${note}" -->
+
+				<label style="color: green;" th:text="#{sale.product.note}"></label>
+				<input type="text" class="form-control" th:field="*{note}"
+					style="width: 600px" required="required"> <label
+					class="alert alert-danger mb-2" th:if="${sale_note_too_short}">
+					5 den küçük olamaz</label> <br>
+				<!-- 				 <input -->
+				<!-- 					type="text" class="form-control" style="width: 600px" -->
+				<!-- 					th:field="*{note}"> -->
+
+				<div class="form-group">
+					<label>Image: </label> <input type="file" name="productImage"
+						class="form-control-file">
+				</div>
+
+				<button type="submit" class="btn btn-success mt-2"
+					style="width: 200px" th:text="#{sale.button}"></button>
+
+			</form>
+
+			<div class="col-10" th:if="${saleslist.size}>0">
+				<br />
+				<h1 th:text="#{sale.on.product}"></h1>
+
+				<h1 th:text="${saleslist.size}"></h1>
+				<br />
+				<div class="col-10">
+					<table class="table table-striped table-bordered">
+						<thead class="table-dark">
+							<tr>
+								<th scope="col" class="col-auto" th:text="#{sale.ıd}"></th>
+								<th scope="col" class="col-auto" th:text="#{sale.product}"></th>
+								<th scope="col" class="col-auto" th:text="#{sale.price}"></th>
+								<th scope="col" class="col-auto" th:text="#{sale.note}"></th>
+								<th scope="col" class="col-auto" th:text="#{sale.operation}"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="saleunit : ${saleslist}">
+								<td class="col-auto"><label th:text="${saleunit.id}"></label></td>
+								<td class="col-auto"><label
+									th:text="${saleunit.product.name}"></label></td>
+								<td class="col-auto"><label th:text="${saleunit.fiyat}"></label></td>
+								<td class="col-auto"><label th:text="${saleunit.note}"></label></td>
+								<td>
+									<form action="/sale/deleteProduct" method="post">
+										<input type="hidden" name="id" th:value="${saleunit.id}">
+										<input type="submit" th:value="#{sale.delete}"
+											class="btn btn-outline-danger">
+									</form>
+								</td>
+							</tr>
+						</tbody>
+
+
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
+</body>
+</body>
+</html>

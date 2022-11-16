@@ -1,0 +1,96 @@
+<div xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:fragment="menu" th:with="url=${#httpServletRequest.requestURI}">
+
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link
+		href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+		rel="stylesheet" id="bootstrap-css">
+	<script
+		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+			$('[data-toggle="tooltip"]').tooltip();
+			$(".side-nav .collapse").on(
+					"hide.bs.collapse",
+					function() {
+						$(this).prev().find(".fa").eq(1).removeClass(
+								"fa-angle-right").addClass("fa-angle-down");
+					});
+			$('.side-nav .collapse').on(
+					"show.bs.collapse",
+					function() {
+						$(this).prev().find(".fa").eq(1).removeClass(
+								"fa-angle-down").addClass("fa-angle-right");
+					});
+		})
+	</script>
+
+
+	<nav class="navbar-inverse" role="navigation">
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav side-nav" style="top: 0; left: 0">
+				<li><a href="?lang=en"
+					th:if="${#locale.language == 'tr'}" class="fa fa-language"
+					th:text="#{site.english}">
+				</a> <a href="?lang=tr" th:if="${#locale.language == 'en'}"
+					class="fa fa-language" th:text="#{site.turkish}">
+				</a> <a href="#" data-toggle="collapse" data-target="#submenu-1" sec:authorize="isAuthenticated()"><i
+						class="fa fa-user"
+						th:text="${#authentication.getPrincipal().getUsername()}"></i> <i
+						class="fa fa-fw fa-angle-down pull-right"></i></a>
+					<ul id="submenu-1" class="collapse">
+						<li><a href="/logout" sec:authorize="isAuthenticated()"
+							class="fa fa-power-off" th:text="#{site.logout}"></a></li>
+					</ul></li>
+
+				<li><a href="/verifyProposal"
+					sec:authorize="isAuthenticated() AND hasRole('ADMIN')"
+					th:text="#{menu.verifyProposal}"> </a></li>
+
+				<li><a href="/proposal"
+					sec:authorize="isAuthenticated() AND hasRole('USER')"
+					class="fa fa fa-basket" th:text="#{menu.proposal}"></a></li>
+				<li><a href="/giveProposal"
+					sec:authorize="isAuthenticated() AND hasRole('USER')"
+					class="fa fa fa-basket" th:text="#{menu.giveProposal}"></a></li>
+				<li sec:authorize="isAuthenticated() AND hasRole('USER')"><a
+					href="#" data-toggle="collapse" data-target="#submenu-2"><i
+						class="fa fa-fw fa-search" th:text="#{menu.used.products}"></i>  <i
+						class="fa fa-fw fa-angle-down pull-right"></i></a>
+					<ul id="submenu-2" class="collapse">
+						<li><a href="/sale/list"><i
+								class="fa fa-angle-double-right" th:text="#{menu.all.products}"></i></a></li>
+						<li><a href="/sale/getSaleByType?type=1"><i
+								class="fa fa-angle-double-right" th:text="#{menu.processor}"></i></a></li>
+						<li><a href="/sale/getSaleByType?type=2"><i
+								class="fa fa-angle-double-right" th:text="#{menu.display.card}"></i></a></li>
+						<li><a href="/sale/getSaleByType?type=3"><i
+								class="fa fa-angle-double-right" th:text="#{menu.ram}"></i></a></li>
+						<li><a href="/sale/getSaleByType?type=4"><i
+								class="fa fa-angle-double-right" th:text="#{menu.motherboard}"></i></a></li>
+					</ul></li>
+				<li sec:authorize="isAuthenticated() AND hasRole('USER')"><a
+					href="/basket/list" sec:authorize="isAuthenticated()"
+					class="fa fa fa-basket" th:text="#{menu.basket}"> </a></li>
+				<li><a href="/systemlogin" sec:authorize="!isAuthenticated()"
+					class="fa fa fa-sign-in" th:text="#{site.login}"></a></li>
+				<li><a href="/register" sec:authorize="!isAuthenticated()"
+					class="fa fa fa-sign-in" th:text="#{site.register}"></a></li>
+				<li><a href="/booking"
+					sec:authorize="isAuthenticated() AND hasRole('USER')"
+					th:text="#{booking.link.name}"><i
+						class="fa fa-fw fa fa-question-circle"></i> </a></li>
+				<li><a href="/bookinglist"
+					sec:authorize="isAuthenticated() AND hasRole('ADMIN')"
+					th:text="#{menu.bookinglist}"><i
+						class="fa fa-fw fa fa-question-circle"></i> </a></li>
+				<li><a href="/sale/sellproduct"
+					sec:authorize="isAuthenticated() AND hasRole('ADMIN')"
+					th:text="#{sell.product}"></a></li>
+			</ul>
+		</div>
+	</nav>
+</div>
